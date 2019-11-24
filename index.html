@@ -13,8 +13,8 @@
       <h2>Select a Major</h2>
 
       <div style='padding: 5px;'>
-         <button type='button' class='btn btn-primary' onClick="getData('CIT')">CIT Majors</button> &nbsp;
-         <button type='button' class="btn btn-primary" onClick="getData('BUS')">Business Majors</button>
+         <button type='button' class='btn btn-info' onClick="getData('CIT')">CIT Majors</button> &nbsp;
+         <button type='button' class="btn btn-info" onClick="getData('BUS')">Business Majors</button>
       </div>
 
       <h3>Filter dataset</h3>
@@ -38,24 +38,24 @@
 
    function getData(selected_major) {
       var request = new XMLHttpRequest();
-      request.open('GET', 'https://juliabee33.github.io/projectFive/cit5students.json');      // open Ajax request for data file menu_items.json
+      request.open('GET', 'https://juliabee33.github.io/projectFive/cit5students.json');      
  
-      request.onload = function() {                     // when the data comes back, browser calls this function
-         var data = JSON.parse(request.responseText);    // convert json to javascript array of objects
+      request.onload = function() {                    
+         var data = JSON.parse(request.responseText);    
 
-         major_items = data.filter(getMajor)       // meal_itmes array will contain the filtered data using the getMeal() function
+         major_items = data.filter(getMajor)       
          function getMajor(item) {
-            return item.major == selected_major;   // the new meal_items array will contain only items for the selected meal
+            return item.major == selected_major;   
          }
         
-        if (request.status == 200) {    // if all is well as data returns, then compile and populate the template
+        if (request.status == 200) {    
             var templateText = document.getElementById('tableTemplate').innerHTML;
             var compiledTemplateText = Handlebars.compile(templateText);       
             compiledHtml = compiledTemplateText({ rows: major_items })          
             document.getElementById('majorTable').innerHTML = compiledHtml; 
         }
         else {
-            document.querySelector('#majorTable').innerHTML = "There was an error, or menu items not found";
+            document.querySelector('#majorTable').innerHTML = "There was an error";
         }
      }
      
